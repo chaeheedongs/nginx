@@ -1,36 +1,37 @@
-# Nginx
+# Nginx Configuration Logic
 
+<br>
 
+<br>
 
-
-
-
+<br>
 
 ## Index
 
 * [Intro](#intro)
 * [Configuration Context](#configuration-context)
+* [Configuration File Path](#configuration-file-path)
 * [Director](#director)
 * [Basic Commands](#basic-commands)
-* [Configuration File Path](#configuration-file-path)
 
 ---
 
+<br>
 
+<br>
 
-
-
-
+<br>
 
 ## intro
 
+* 해당 글은 공식 홈페이지를 참고하여 작성하였습니다.
 * [Nginx 홈페이지 바로가기](https://nginxstore.com/training/nginx-conf-%EC%84%A4%EC%A0%95-context-logic-%EB%B0%B0%EC%9A%B0%EA%B8%B0/)
 
+<br>
 
+<br>
 
-
-
-
+<br>
 
 ## configuration context
 
@@ -55,23 +56,65 @@
   * NGINX가 Layer3과 Layer4 TCP / UDP와 같은 트래픽을 처리하는 방법을 정의한다.
 
 ```
-
-Main
-l  l- Events
-l  l- HTTP
-l     l- Server
-l     l  l- Location
-l     l- Upstream
-l  l- Stream
-l     l- Server
-l     l- Upstream
+. Main
+├── Events
+│   
+├── HTTP
+│   ├── Server
+│   │   └── Location
+│   └── Upstream
+└── Stream
+    ├── Server
+    └── Stream
 ```
 
+<br>
+
+<br>
+
+<br>
+
+## configuration file path
+
+```
+/etc/nginx # pwd
+/etc/nginx
 
 
+/etc/nginx # ls -al
+total 52
+drwxr-xr-x    1 root     root          4096 Jun 15 02:58 .
+drwxr-xr-x    1 root     root          4096 Jun 21 15:18 ..
+drwxr-xr-x    1 root     root          4096 Jun 21 15:18 conf.d
+-rw-r--r--    1 root     root          1077 Jun 13 17:34 fastcgi.conf
+-rw-r--r--    1 root     root          1007 Jun 13 17:34 fastcgi_params
+-rw-r--r--    1 root     root          5349 Jun 13 17:34 mime.types
+lrwxrwxrwx    1 root     root            22 Jun 15 02:58 modules -> /usr/lib/nginx/modules
+-rw-r--r--    1 root     root           648 Jun 13 17:34 nginx.conf
+-rw-r--r--    1 root     root           636 Jun 13 17:34 scgi_params
+-rw-r--r--    1 root     root           664 Jun 13 17:34 uwsgi_params
 
 
+/etc/nginx # ls -al conf.d
+total 20
+drwxr-xr-x    1 root     root          4096 Jun 21 15:18 .
+drwxr-xr-x    1 root     root          4096 Jun 15 02:58 ..
+-rw-r--r--    1 root     root          1093 Jun 21 15:18 default.conf
+```
 
+* Main File
+  * /etc/nginx/nginx.conf
+  * (주의) NGINX는 알파벳 순으로 지시문을 리딩한다.
+* Includes
+  * /etc/nginx/conf.d/*.conf
+  * NGINX 인스턴스를 구성하는 것은 모든 Includes 설정 파일을 conf.d 디렉토리 하위에 넣는 것 이다.
+  * /etc/nginx/nginx.conf 파일의 include 지시문을 사용해 구성을 조립 한다.
+
+<br>
+
+<br>
+
+<br>
 
 ## director
 
@@ -87,11 +130,11 @@ Server {
 }
 ```
 
+<br>
 
+<br>
 
-
-
-
+<br>
 
 ## basic commands
 
@@ -305,45 +348,8 @@ server {
 
 ```
 
+<br>
 
+<br>
 
-
-
-
-
-## configuration file path
-
-```
-/etc/nginx # pwd
-/etc/nginx
-
-
-/etc/nginx # ls -al
-total 52
-drwxr-xr-x    1 root     root          4096 Jun 15 02:58 .
-drwxr-xr-x    1 root     root          4096 Jun 21 15:18 ..
-drwxr-xr-x    1 root     root          4096 Jun 21 15:18 conf.d
--rw-r--r--    1 root     root          1077 Jun 13 17:34 fastcgi.conf
--rw-r--r--    1 root     root          1007 Jun 13 17:34 fastcgi_params
--rw-r--r--    1 root     root          5349 Jun 13 17:34 mime.types
-lrwxrwxrwx    1 root     root            22 Jun 15 02:58 modules -> /usr/lib/nginx/modules
--rw-r--r--    1 root     root           648 Jun 13 17:34 nginx.conf
--rw-r--r--    1 root     root           636 Jun 13 17:34 scgi_params
--rw-r--r--    1 root     root           664 Jun 13 17:34 uwsgi_params
-
-
-/etc/nginx # ls -al conf.d
-total 20
-drwxr-xr-x    1 root     root          4096 Jun 21 15:18 .
-drwxr-xr-x    1 root     root          4096 Jun 15 02:58 ..
--rw-r--r--    1 root     root          1093 Jun 21 15:18 default.conf
-```
-
-* Main File
-  * /etc/nginx/nginx.conf
-  * (주의) NGINX는 알파벳 순으로 지시문을 리딩한다.
-* Includes
-  * /etc/nginx/conf.d/*.conf
-  * NGINX 인스턴스를 구성하는 것은 모든 Includes 설정 파일을 conf.d 디렉토리 하위에 넣는 것 이다.
-  * /etc/nginx/nginx.conf 파일의 include 지시문을 사용해 구성을 조립 한다.
-
+<br>
